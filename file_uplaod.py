@@ -26,3 +26,6 @@ def upload_file():
             flash('completed file upload')
             return redirect(request.url)
     return render_template("file.html")
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
