@@ -1,0 +1,23 @@
+<!doctype html>
+<title>Upload File</title>
+<h1>Upload File</h1>
+<h4>only supported types are mp4, avi, mkv and srt for subtitles </h4>
+<div>
+    {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+</div>
+<form method=post enctype=multipart/form-data>
+    <select name="folder">
+        <option value="/home/prinzpiuz/tv/">TV</option>
+        <option value="/home/prinzpiuz/mov/">Movies</option>
+    </select>
+    <p><input type=file name=file multiple="">
+        <input type=submit value=Upload>
+</form>
