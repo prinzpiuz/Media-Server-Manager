@@ -1,6 +1,7 @@
 <!doctype html>
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Upload Media</title>
+<a href="/files">Delete files</a>
 <h1>Upload Media</h1>
 <h4>only supported types are mp4, avi, mkv and srt for subtitles </h4>
 <div>
@@ -16,8 +17,8 @@
 </div>
 <form method=post enctype=multipart/form-data>
     <select name="folder">
-        <option value="/home/prinzpiuz/TV/">TV</option>
-        <option value="/home/prinzpiuz/Movies/">Movies</option>
+        <option value="{{tv}}">TV</option>
+        <option value="{{movies}}">Movies</option>
     </select>
     <p><input type=file name=file multiple="">
         <input type=submit value=Upload>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>files uploaded</title>
+</head>
+<body>
+<div>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+</div>
+<a href="/">Upload</a>
+<form method=post>
+    {% for file in file_list %}
+    <h4><input type="checkbox" name="file_list" value="{{file}}" id="{{file}}"><label for="{{file}}">{{file}}</label>
+    </h4>
+    {% endfor %}
+    <button><input type="submit" value="Submit"></button>
+</form>
+</body>
+</html>
