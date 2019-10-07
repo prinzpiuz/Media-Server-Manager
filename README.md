@@ -8,7 +8,8 @@ its minimal flask application for uploading media files in media server like emb
 ****
 ### TODO
 
-* list media files from server also access to delete
-* cleaning file names 
+* [x] list media files from server also access to delete
+* [ ] cleaning file names 
+* [ ] server status(like cpu usage, ram, core temp, available space..etc)
 
 ****
