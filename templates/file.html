@@ -15,6 +15,11 @@
   {% endif %}
 {% endwith %}
 </div>
+<div>
+  <h2>Disk usage</h2>
+  <h4>disk usage:{{disk.used}} out of {{disk.total}}</h4>
+  <h4>free:{{disk.free}}</h4>
+</div>
 <form method=post enctype=multipart/form-data>
     <select name="folder">
         <option value="{{tv}}">TV</option>

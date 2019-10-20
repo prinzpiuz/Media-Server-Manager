@@ -3,6 +3,8 @@ from pathlib import *
 from flask import Flask, request, redirect, url_for, flash, render_template
 from werkzeug.utils import secure_filename
 import configparser
+import shutil
+from hurry.filesize import size, alternative
 
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -27,6 +29,13 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def system_statics():
+    usage = shutil.disk_usage(config['DEFAULT']['MOVIES'])
+    return {'total':size(usage[0], system=alternative),
+        'used':size(usage[1], system=alternative),
+        'free':size(usage[2], system=alternative)}
+    
+
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
@@ -43,7 +52,8 @@ def upload_file():
                 else:
                     flash("{0}'s format not supported".format(file.filename))
             return redirect(request.url)
-    context = {'tv': config['DEFAULT']['TV'], 'movies': config['DEFAULT']['MOVIES'] }
+    disk_usage = system_statics()
+    context = {'tv': config['DEFAULT']['TV'], 'movies': config['DEFAULT']['MOVIES'],'disk':disk_usage }
     return render_template("file.html", **context)
 
 
