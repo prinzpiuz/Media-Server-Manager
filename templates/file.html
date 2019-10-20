@@ -18,23 +18,23 @@
 {% endwith %}
 </div>
 <div>
-  <h2>Disk usage</h2>
+  <h3>Disk usage</h3>
   <h4>disk usage:{{disk.used}} out of {{disk.total}}</h4>
   <h4>free:{{disk.free}}</h4>
 </div>
 <form method=post enctype=multipart/form-data>
-    <select name="folder">
+    <select onchange="tv_sel(this.selectedIndex)" name="folder">
         <option id="tv" value="{{tv}}">TV</option>
-        <option id="movies" value="{{movies}}">Movies</option>
+        <option selected="selected" id="movies" value="{{movies}}">Movies</option>
     </select><br>
       <label class="folder">folder</label>
-      <select id="folder_sel" class="folder" name="folder_exist">
-          <option id="new" value="">Create New</option>
+      <select onchange="createNew(this.length,this.selectedIndex)" id="folder_sel" class="folder" name="folder_exist">
           {% for folder in tv_folders %}
           <option id="{{folder}}" value="{{folder}}">{{folder}}</option>
           {% endfor %}
+          <option id="new" value="">Create New</option>
       </select>
-      <input id="folder_text"  name="folderTocreate" placeholder="enter fodername you want create" type="text">
+      <input id="folder_text"  name="folderTocreate" placeholder="new foldername" type="text">
       <input type=file name=file multiple="">
         <input type=submit value=Upload>
 </form>
