@@ -1,5 +1,7 @@
 <!doctype html>
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+ <script src="{{url_for('static', filename='tv.js')}}"></script>
 <title>Upload Media</title>
 <a href="/files">Delete files</a>
 <h1>Upload Media</h1>
@@ -22,9 +24,17 @@
 </div>
 <form method=post enctype=multipart/form-data>
     <select name="folder">
-        <option value="{{tv}}">TV</option>
-        <option value="{{movies}}">Movies</option>
-    </select>
-    <p><input type=file name=file multiple="">
+        <option id="tv" value="{{tv}}">TV</option>
+        <option id="movies" value="{{movies}}">Movies</option>
+    </select><br>
+      <label class="folder">folder</label>
+      <select id="folder_sel" class="folder" name="folder_exist">
+          <option id="new" value="">Create New</option>
+          {% for folder in tv_folders %}
+          <option id="{{folder}}" value="{{folder}}">{{folder}}</option>
+          {% endfor %}
+      </select>
+      <input id="folder_text"  name="folderTocreate" placeholder="enter fodername you want create" type="text">
+      <input type=file name=file multiple="">
         <input type=submit value=Upload>
 </form>

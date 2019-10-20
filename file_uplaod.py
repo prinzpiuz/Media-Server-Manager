@@ -35,7 +35,13 @@ def system_statics():
         'used':size(usage[1], system=alternative),
         'free':size(usage[2], system=alternative)}
     
-
+def get_folders():
+    folder_list = []
+    tv_path = Path(config['DEFAULT']['TV'])
+    for child in tv_path.iterdir(): 
+        if child.is_dir():
+            folder_list.append(child.name)
+    return folder_list
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
@@ -47,15 +53,30 @@ def upload_file():
             for file in files:
                 if allowed_file(file.filename):
                     filename = secure_filename(file.filename)
-                    file.save(os.path.join(folder, filename))
-                    flash('completed uploading {0}'.format(file.filename))
+                    if folder == config['DEFAULT']['TV']:
+                        folder_name = request.form.get('folderTocreate')
+                        exist_tv_folder = request.form.get('folder_exist')
+                        if folder_name or exist_tv_folder:
+                            if exist_tv_folder:
+                                folder = os.path.join(folder, exist_tv_folder)
+                            elif folder_name:
+                                tv_path = Path(config['DEFAULT']['TV'])/folder_name
+                                tv_path.mkdir()
+                                folder = os.path.join(folder, folder_name)
+                            file.save(os.path.join(folder, filename))
+                            flash('completed uploading {0}'.format(file.filename))
+                        else:
+                            flash('please select a existing folder or enter name for new one')
+                    else:
+                        file.save(os.path.join(folder, filename))
+                        flash('completed uploading {0}'.format(file.filename))
                 else:
                     flash("{0}'s format not supported".format(file.filename))
             return redirect(request.url)
     disk_usage = system_statics()
-    context = {'tv': config['DEFAULT']['TV'], 'movies': config['DEFAULT']['MOVIES'],'disk':disk_usage }
+    tv_folders = get_folders()
+    context = {'tv': config['DEFAULT']['TV'], 'movies': config['DEFAULT']['MOVIES'],'disk':disk_usage ,'tv_folders':tv_folders}
     return render_template("file.html", **context)
-
 
 @app.route('/files', methods=['GET', 'POST'])
 def files():
