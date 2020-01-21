@@ -1,5 +1,5 @@
 # Media Server Manager
-its minimal flask application for uploading media files in media server like emby, kodi, plex..etc 
+its minimal flask application for uploading media files in media server like emby, kodi, plex..etc </br>
 corresponding mobile interface available in [Mobile](http://github.com)
 ****
 ### To Run
